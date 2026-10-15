@@ -1,7 +1,7 @@
 .PHONY: test lint run export-openapi
 
 test:
-	uv run pytest
+	uv run pytest -n auto --cov=app --cov-report=term-missing --cov-fail-under=85
 
 lint:
 	uv run ruff check .
