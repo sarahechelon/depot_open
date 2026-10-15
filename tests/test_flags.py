@@ -1,12 +1,14 @@
+import pytest
+
 from app import flags
 
 
-def test_flag_defaults_to_off(monkeypatch: object) -> None:
+def test_flag_defaults_to_off(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("DEPOT_FLAG_WEBHOOKS", raising=False)
     assert flags.is_enabled("webhooks") is False
 
 
-def test_flag_can_be_enabled(monkeypatch: object) -> None:
+def test_flag_can_be_enabled(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("DEPOT_FLAG_WEBHOOKS", "true")
     assert flags.is_enabled("webhooks") is True
 

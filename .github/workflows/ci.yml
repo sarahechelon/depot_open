@@ -29,7 +29,7 @@ jobs:
       - name: Unused dependencies (deptry)
         run: uv run deptry .
       - name: Duplicate code (jscpd)
-        run: npx --yes jscpd@latest --silent .
+        run: npx --yes jscpd@latest --silent
       - name: Make targets work
         run: make lint
 

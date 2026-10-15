@@ -9,6 +9,8 @@ dependencies = [
     "sqlalchemy>=2.0",
     "alembic>=1.13",
     "pydantic>=2.7",
+    # Directly imported by app/middleware.py even though fastapi also pulls it in.
+    "starlette>=0.37",
     "structlog>=24.1",
     "prometheus-client>=0.20",
     "sentry-sdk[fastapi]>=2.0",

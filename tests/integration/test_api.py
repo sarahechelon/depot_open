@@ -27,18 +27,22 @@ def base_url() -> Iterator[str]:
     thread = threading.Thread(target=server.run, daemon=True)
     thread.start()
     url = f"http://127.0.0.1:{port}"
-    # Wait for the server to accept connections.
-    for _ in range(100):
-        try:
-            with socket.create_connection(("127.0.0.1", port), timeout=0.1):
-                break
-        except OSError:
-            if not thread.is_alive():
-                raise RuntimeError("uvicorn server died during startup") from None
-            continue
+    _wait_until_serving(url)
     yield url
     server.should_exit = True
     thread.join(timeout=5)
+
+
+def _wait_until_serving(url: str, attempts: int = 100) -> None:
+    """Retry real HTTP requests until uvicorn answers (xdist-safe startup wait)."""
+    last_error: Exception | None = None
+    for _ in range(attempts):
+        try:
+            httpx.get(f"{url}/health", timeout=1.0)
+            return
+        except httpx.HTTPError as exc:
+            last_error = exc
+    raise RuntimeError(f"server at {url} never became ready") from last_error
 
 
 def test_health_over_real_http(base_url: str) -> None:

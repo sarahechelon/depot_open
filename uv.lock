@@ -261,6 +261,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "sentry-sdk", extra = ["fastapi"] },
     { name = "sqlalchemy" },
+    { name = "starlette" },
     { name = "structlog" },
     { name = "uvicorn", extra = ["standard"] },
 ]
@@ -285,6 +286,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.7" },
     { name = "sentry-sdk", extras = ["fastapi"], specifier = ">=2.0" },
     { name = "sqlalchemy", specifier = ">=2.0" },
+    { name = "starlette", specifier = ">=0.37" },
     { name = "structlog", specifier = ">=24.1" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]
