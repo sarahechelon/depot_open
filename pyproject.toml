@@ -46,6 +46,14 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "--durations=10 -p no:cacheprovider"
 
+[tool.deptry]
+# DEP002 is expected for deps used indirectly or by upcoming stories:
+# uvicorn runs the server; sqlalchemy/alembic/pydantic are exercised from story 1 on.
+known_first_party = ["app"]
+
+[tool.deptry.per_rule_ignores]
+DEP002 = ["uvicorn", "sqlalchemy", "alembic", "pydantic"]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
