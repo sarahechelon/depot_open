@@ -52,12 +52,11 @@ python_files = ["test_*.py"]
 addopts = "--durations=10 -p no:cacheprovider"
 
 [tool.deptry]
-# DEP002 is expected for deps used indirectly or by upcoming stories:
-# uvicorn runs the server; sqlalchemy/alembic/pydantic are exercised from story 1 on.
 known_first_party = ["app"]
 
 [tool.deptry.per_rule_ignores]
-DEP002 = ["uvicorn", "sqlalchemy", "alembic", "pydantic"]
+# uvicorn and alembic are CLI tools invoked via `uv run`, never imported.
+DEP002 = ["uvicorn", "alembic"]
 
 [build-system]
 requires = ["hatchling"]
