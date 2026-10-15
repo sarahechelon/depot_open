@@ -1,0 +1,24 @@
+name: Feature / backlog story
+description: Propose a change or pick up a SPEC.md backlog story.
+labels: ["type:feature", "triage"]
+body:
+  - type: textarea
+    id: story
+    attributes:
+      label: Story / done-when
+      description: Quote the SPEC.md row if this implements a backlog story.
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed approach
+      description: Routers, services, models, migrations affected.
+  - type: checkboxes
+    id: definition-of-done
+    attributes:
+      label: Definition of done
+      options:
+        - label: make lint and make test pass locally
+        - label: New schemas ship with an Alembic migration
+        - label: Router has a test module; no existing tests deleted

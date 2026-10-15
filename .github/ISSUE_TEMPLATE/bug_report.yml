@@ -1,0 +1,32 @@
+name: Bug report
+description: Something in Depot is broken or incorrect.
+labels: ["type:bug", "triage"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Include the request, expected vs actual behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. POST /products with ...
+        2. GET /products returns ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [backend, api-contract, tooling, docs]
+    validations:
+      required: true
+  - type: input
+    id: request-id
+    attributes:
+      label: Request ID
+      description: From the X-Request-ID response header, if available.
