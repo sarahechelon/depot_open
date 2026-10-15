@@ -24,6 +24,8 @@ jobs:
         run: |
           scripts/check_file_size.sh
           scripts/check_todos.sh
+      - name: AGENTS.md/README make targets exist
+        run: scripts/check_agents_md.sh
       - name: Unused dependencies (deptry)
         run: uv run deptry .
       - name: Duplicate code (jscpd)
