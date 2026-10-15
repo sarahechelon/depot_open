@@ -1,7 +1,7 @@
-.PHONY: test lint run
+.PHONY: test lint run export-openapi
 
 test:
-	uv run pytest
+	uv run pytest -n auto --cov=app --cov-report=term-missing --cov-fail-under=85
 
 lint:
 	uv run ruff check .
@@ -9,3 +9,6 @@ lint:
 
 run:
 	uv run uvicorn app.main:app --reload
+
+export-openapi:
+	uv run python scripts/export_openapi.py

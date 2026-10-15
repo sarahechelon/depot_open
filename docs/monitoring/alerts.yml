@@ -1,0 +1,28 @@
+# Prometheus alert rules for Depot. Scrape /metrics and load this file as a rule group.
+groups:
+  - name: depot
+    rules:
+      - alert: DepotHighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Depot 5xx rate above 5% for 5 minutes"
+          runbook: https://github.com/sarahechelon/depot_open/blob/master/docs/runbooks/incident-response.md
+
+      - alert: DepotDown
+        expr: up{job="depot"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Depot /health failing for 2 minutes"
+
+      - alert: DepotHighLatency
+        expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Depot p99 latency above 1s"

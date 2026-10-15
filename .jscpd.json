@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/jscpd@latest/schema/jscpd.json",
+  "threshold": 5,
+  "min-tokens": 50,
+  "reporters": ["consoleFull"],
+  "path": ["app", "tests"],
+  "formats": ["python"]
+}
