@@ -1,0 +1,33 @@
+# Git hooks enforcing the same checks as CI. Install once: `uv run pre-commit install`.
+# Run on every commit: ruff lint/format, strict mypy, and repo guard scripts.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy (strict)
+        entry: uv run mypy
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: check-file-size
+        name: check no oversized source files
+        entry: scripts/check_file_size.sh
+        language: system
+        pass_filenames: false
+      - id: check-todos
+        name: require linked issue on TODO/FIXME
+        entry: scripts/check_todos.sh
+        language: system
+        pass_filenames: false
+      - id: deptry
+        name: deptry (unused dependency check)
+        entry: uv run deptry .
+        language: system
+        types: [toml]
+        pass_filenames: false
