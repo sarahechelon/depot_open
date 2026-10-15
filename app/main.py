@@ -8,7 +8,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, REGISTRY, generate_latest
 
 from app.log import configure_logging
 from app.middleware import RequestIDMiddleware
-from app.routers import health
+from app.routers import health, products
 
 
 @asynccontextmanager
@@ -23,6 +23,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 def create_app() -> FastAPI:
     app = FastAPI(title="Depot", description="Internal inventory and orders service.")
     app.include_router(health.router)
+    app.include_router(products.router)
     app.add_middleware(RequestIDMiddleware)
 
     @app.get("/metrics", tags=["health"], include_in_schema=False)
