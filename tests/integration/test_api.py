@@ -34,7 +34,7 @@ def base_url() -> Iterator[str]:
                 break
         except OSError:
             if not thread.is_alive():
-                raise RuntimeError("uvicorn server died during startup")
+                raise RuntimeError("uvicorn server died during startup") from None
             continue
     yield url
     server.should_exit = True
